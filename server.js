@@ -15,7 +15,12 @@ app.use(express.json()); // Parses incoming JSON requests
 app.use(
     cors({
         // origin: ["http://127.0.0.1:5173", "http://localhost:5173"], // Frontend's exact origin
-        origin: ["https://www.probablyawebsite.com", "https://api.probablyawebsite.com",], // Frontend's exact origin
+        origin: [      
+            "http://www.probablyawebsite.com", 
+            "https://www.probablyawebsite.com",
+            "http://api.probablyawebsite.com", 
+            "https://api.probablyawebsite.com"
+        ], // Frontend's exact origin
         methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
         allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
     })
