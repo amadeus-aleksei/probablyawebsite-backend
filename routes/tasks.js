@@ -25,9 +25,14 @@ router.post("/", async (req, res) => {
 
 // Update a task
 router.put("/:id", async (req, res) => {
-    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    res.json(updatedTask)
-})
+    try {
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedTask);
+    } catch (error) {
+        console.error("Error updating task:", error);
+        res.status(500).json({ message: "Failed to update task" });
+    }
+});
 
 // Delete a task
 router.delete("/:id", async (req, res) => {
