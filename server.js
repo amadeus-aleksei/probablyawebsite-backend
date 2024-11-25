@@ -15,10 +15,14 @@ app.use(express.json()); // Parses incoming JSON requests
 app.use(
     cors({
         origin: (origin, callback) => {
-            const allowedOrigins = [
-                "http://localhost:5173",
-                "http://127.0.0.1:5173",
-            ];
+            const allowedOrigins = process.env.NODE_ENV === "development"
+                ? ["http://localhost:5173", "http://127.0.0.1:5173"]
+                : [
+                    "http://www.probablyawebsite.com",
+                    "https://www.probablyawebsite.com",
+                    "http://api.probablyawebsite.com",
+                    "https://api.probablyawebsite.com",
+                ];
             if (!origin || allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
