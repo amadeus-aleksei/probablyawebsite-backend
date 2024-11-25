@@ -29,16 +29,7 @@ app.use(
                 callback(new Error("Not allowed by CORS"));
             }
         },
-        // origin: 
-        //     process.env.NODE_ENV === "development"
-        //         ? "http://localhost:5173" // Dev frontend
-        //         : [
-        //             "http://www.probablyawebsite.com",
-        //             "https://www.probablyawebsite.com",
-        //             "http://api.probablyawebsite.com",
-        //             "https://api.probablyawebsite.com",
-        //           ],
-    
+
         methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
         allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
     })
@@ -53,6 +44,12 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "frontend", "build")));
 
     app.get("*", (req, res) => {
+        // Ensure unmatched API requests don't return the React app
+        if (req.originalUrl.startsWith("/api")) {
+            return res.status(404).json({ error: "API route not found" });
+        }
+
+        // Serve React app for non-API routes
         res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
     });
 }
