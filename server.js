@@ -44,12 +44,9 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "frontend", "build")));
 
     app.get("*", (req, res) => {
-        // Ensure unmatched API requests don't return the React app
         if (req.originalUrl.startsWith("/api")) {
             return res.status(404).json({ error: "API route not found" });
         }
-
-        // Serve React app for non-API routes
         res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
     });
 }
