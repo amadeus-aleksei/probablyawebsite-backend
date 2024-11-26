@@ -46,27 +46,16 @@ app.use("/api/tasks", tasksRoutes);
 
 
 // Catch-all route for serving the frontend (only if required in production)
-if (process.env.NODE_ENV === "production") {
-    const path = require("path");
-    app.use(express.static(path.join(__dirname, "frontend", "build")));
+// if (process.env.NODE_ENV === "production") {
+//     const path = require("path");
+//     app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-    // app.get("*", (req, res) => {
-    //     // if (req.originalUrl.startsWith("/api")) {
-    //     //     return res.status(404).json({ error: "API route not found" });
-    //     // }
-    //     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-    // });
-}
-
-// if (process.env.NODE_ENV === "development") {
-//     const { createProxyMiddleware } = require("http-proxy-middleware");
-//     app.use(
-//         "/",
-//         createProxyMiddleware({
-//             target: "http://localhost:5173", // Frontend dev server
-//             changeOrigin: true,
-//         })
-//     );
+//     // app.get("*", (req, res) => {
+//     //     // if (req.originalUrl.startsWith("/api")) {
+//     //     //     return res.status(404).json({ error: "API route not found" });
+//     //     // }
+//     //     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+//     // });
 // }
 
 // Connect to MongoDB and start backend server
