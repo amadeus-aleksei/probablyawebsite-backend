@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
     }
 });
 
-
 // Add a new task
 router.post("/", async (req, res) => {
     const newTask = new Task(req.body)
