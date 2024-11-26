@@ -37,11 +37,11 @@ app.use(
     })
 );
 
-const tasksRoutes = require("./routes/tasks")
-app.use("/api/tasks", tasksRoutes)
+const tasksRoutes = require("./routes/tasks");
+app.use("/api/tasks", tasksRoutes);
 
-const eventsRoutes = require("./routes/events")
-app.use("/api/events", eventsRoutes)
+const eventsRoutes = require("./routes/events");
+app.use("/api/events", eventsRoutes);
 
 // Catch-all route for serving the frontend (only if required in production)
 if (process.env.NODE_ENV === "production") {
