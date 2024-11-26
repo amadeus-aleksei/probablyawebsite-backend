@@ -7,6 +7,7 @@ router.get("/", async (req, res) => {
     console.log("GET /api/events received")
     try {
         const events = await Event.find()
+        console.log("Fetched events:", events); // Log the fetched events
         res.json(events)
     } catch (error) {
         console.error("Error fetching events:", error)

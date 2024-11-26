@@ -48,12 +48,12 @@ if (process.env.NODE_ENV === "production") {
     const path = require("path");
     app.use(express.static(path.join(__dirname, "frontend", "build")));
 
-    app.get("*", (req, res) => {
-        // if (req.originalUrl.startsWith("/api")) {
-        //     return res.status(404).json({ error: "API route not found" });
-        // }
-        res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-    });
+    // app.get("*", (req, res) => {
+    //     // if (req.originalUrl.startsWith("/api")) {
+    //     //     return res.status(404).json({ error: "API route not found" });
+    //     // }
+    //     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+    // });
 }
 
 // if (process.env.NODE_ENV === "development") {
