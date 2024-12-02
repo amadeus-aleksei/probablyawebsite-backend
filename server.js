@@ -38,7 +38,7 @@ app.use(
 );
 
 const eventsRoutes = require("./routes/events");
-app.use("/api/events", eventsRoutes);
+app.use("/api/advents", eventsRoutes);
 
 const tasksRoutes = require("./routes/tasks");
 app.use("/api/tasks", tasksRoutes);
