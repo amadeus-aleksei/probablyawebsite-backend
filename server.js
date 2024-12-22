@@ -37,8 +37,6 @@ app.use(
     })
 );
 
-app.use((req, res) => console.log('Request logged at: ', Date.now()));
-
 const eventsRoutes = require("./routes/events");
 app.use("/api/events", eventsRoutes);
 
