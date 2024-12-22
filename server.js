@@ -37,26 +37,14 @@ app.use(
     })
 );
 
+app.use((req, res, next) => console.log('Request logged at: ', Date.now()));
+next()
+
 const eventsRoutes = require("./routes/events");
 app.use("/api/advents", eventsRoutes);
 
 const tasksRoutes = require("./routes/tasks");
 app.use("/api/tasks", tasksRoutes);
-
-
-
-// Catch-all route for serving the frontend (only if required in production)
-// if (process.env.NODE_ENV === "production") {
-//     const path = require("path");
-//     app.use(express.static(path.join(__dirname, "frontend", "build")));
-
-//     // app.get("*", (req, res) => {
-//     //     // if (req.originalUrl.startsWith("/api")) {
-//     //     //     return res.status(404).json({ error: "API route not found" });
-//     //     // }
-//     //     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-//     // });
-// }
 
 // Connect to MongoDB and start backend server
 mongoose
