@@ -5,7 +5,8 @@ const router = express.Router()
 
 router.get("/", async (req, res) => {
     console.log("GET /api/events received")
-    res.json([{ title: "Static Event", start: new Date(), end: new Date() }]);
+    // res.json([{ title: "Static Event", start: new Date(), end: new Date() }]);
+    
     // try {
     //     const events = await Event.find()
     //     console.log("Fetched events from DB:", events); // Log the fetched events
@@ -14,6 +15,15 @@ router.get("/", async (req, res) => {
     //     console.error("Error fetching events:", error)
     //     res.status(500).json({message: "Server error"})
     // }
+    try {
+        console.log("Querying events...");
+        const events = await Event.find();
+        console.log("Fetched events:", events);
+        res.json(events);
+    } catch (error) {
+        console.error("Error fetching events:", error);
+        res.status(500).json({ message: "Server error" });
+    }
 })
 
 router.post("/", async (req, res) => {
