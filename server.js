@@ -37,6 +37,9 @@ app.use(
     })
 );
 
+const authRoutes = require("./routes/auth").router;
+app.use("/api/auth", authRoutes);
+
 const eventsRoutes = require("./routes/events");
 app.use("/api/events", eventsRoutes);
 

@@ -1,42 +1,52 @@
-const express = require("express")
-const Task = require("../models/Task")
+const express = require("express");
+const Task = require("../models/Task");
+const { authMiddleware } = require("./auth");
 
-const router = express.Router()
+const router = express.Router();
 
-// Get all tasks
-router.get("/", async (req, res) => {
-    console.log("GET /api/tasks received");
-    try {
-        const tasks = await Task.find();
-        res.json(tasks);
-    } catch (error) {
-        console.error("Error fetching tasks:", error);
-        res.status(500).json({ message: "Server Error" });
-    }
+// Get all tasks for a user
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const tasks = await Task.find({ userId: req.userId });
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 // Add a new task
-router.post("/", async (req, res) => {
-    const newTask = new Task(req.body)
-    const savedTask = await newTask.save()
-    res.status(201).json(savedTask)
-})
+router.post("/", authMiddleware, async (req, res) => {
+  try {
+    const newTask = new Task({ ...req.body, userId: req.userId });
+    const savedTask = await newTask.save();
+    res.status(201).json(savedTask);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add task" });
+  }
+});
 
 // Update a task
-router.put("/:id", async (req, res) => {
-    try {
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json(updatedTask);
-    } catch (error) {
-        console.error("Error updating task:", error);
-        res.status(500).json({ message: "Failed to update task" });
-    }
+router.put("/:id", authMiddleware, async (req, res) => {
+  try {
+    const updatedTask = await Task.findOneAndUpdate(
+      { _id: req.params.id, userId: req.userId },
+      req.body,
+      { new: true }
+    );
+    res.json(updatedTask);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update task" });
+  }
 });
 
 // Delete a task
-router.delete("/:id", async (req, res) => {
-    await Task.findByIdAndDelete(req.params.id)
-    res.status(204).send()
-})
+router.delete("/:id", authMiddleware, async (req, res) => {
+  try {
+    await Task.findOneAndDelete({ _id: req.params.id, userId: req.userId });
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete task" });
+  }
+});
 
-module.exports = router
+module.exports = router;
