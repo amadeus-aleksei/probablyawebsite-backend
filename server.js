@@ -19,10 +19,10 @@ app.use(
                 process.env.NODE_ENV === "development"
                     ? ["http://localhost:5173", "http://127.0.0.1:5173"]
                     : [
-                        "http://www.probablyawebsite.com",
-                        "https://www.probablyawebsite.com",
-                        "http://api.probablyawebsite.com",
-                        "https://api.probablyawebsite.com",
+                        "http://www.righttrackplanner.com",
+                        "https://www.righttrackplanner.com",
+                        "http://api.righttrackplanner.com",
+                        "https://api.righttrackplanner.com",
                     ];
             // Allow no-origin requests for tools like Postman
             if (!origin || allowedOrigins.includes(origin)) {
